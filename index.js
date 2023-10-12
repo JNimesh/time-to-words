@@ -47,7 +47,6 @@ function convertTimeToWords(time) {
   const toMinutes = 60 - minutes;
 
   return `${numberToString[toMinutes]} to ${numberToString[nextHour]}`;
-
 }
 
 module.exports = { convertTimeToWords };
