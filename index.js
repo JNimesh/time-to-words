@@ -28,28 +28,26 @@ const numberToString = {
   27: 'twenty seven',
   28: 'twenty eight',
   29: 'twenty nine',
+  30: 'half',
 }; // expecting time to be a string in the format like '8:15' or '12:30'
 
 function convertTimeToWords(time) {
-  const [hour, minutes] = time.split(':').map((s) => parseInt(s));
-  const hourString = numberToString[hour];
-  const minutesString = numberToString[minutes];
-  if (minutes < 30) {
-    if (minutes === 0) {
-      if (hour % 12 === 0) {
-        return hour === 12 ? 'midday' : 'midnight';
-      }
-      return `${hourString} o'clock`;
-    } else {
-      return `${minutesString} past ${hourString}`;
-    }
-  } else if (minutes === 30) {
-    return `half past ${hourString}`;
-  } else {
-    const nextHour = (hour + 1) % 12;
-    const toMinutes = 60 - minutes;
-    return `${numberToString[toMinutes]} to ${numberToString[nextHour]}`;
+  const [hour, minutes] = time.split(':').map(Number);
+
+  if (minutes === 0) {
+    if (hour === 12) return 'midday';
+    if (hour === 0) return 'midnight';
+    return `${numberToString[hour]} o'clock`;
   }
+
+  if (minutes <= 30) {
+    return `${numberToString[minutes]} past ${numberToString[hour]}`;
+  }
+  const nextHour = (hour + 1) % 12 || 12; // Adjust to wrap 0 to 12
+  const toMinutes = 60 - minutes;
+
+  return `${numberToString[toMinutes]} to ${numberToString[nextHour]}`;
+
 }
 
 module.exports = { convertTimeToWords };

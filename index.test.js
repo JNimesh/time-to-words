@@ -28,7 +28,7 @@ describe('Time to words', () => {
     ['2:40', 'twenty to three'],
     ['2:45', 'quarter to three'],
     ['2:55', 'five to three'],
-  ])('.test(%i, %i)', (a, expected) => {
-    expect(convertTimeToWords(a)).toBe(expected);
+  ])('convertTimeToWords(%s) should return "%s"', (inputTime, expected) => {
+    expect(convertTimeToWords(inputTime)).toBe(expected);
   });
 });
